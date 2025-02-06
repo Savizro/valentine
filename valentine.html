@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal 💖</title>
+    <style>
+       /* @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap'); */
+
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff416c, #833ab4);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(121, 8, 64);
+            overflow: hidden;
+            position: relative;
+        }   
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.5);
+            display: inline-block;
+            color: black;
+            position: relative;
+            z-index: 2;
+        }
+
+        h2 {
+            font-family: 'Pacifico', cursive;
+            color: #ff4081;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #d81b60;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(255, 64, 129, 0.7);
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.5);
+            text-align: center;
+            z-index: 10;
+            display: none;
+        }
+
+        .popup button {
+            margin: 10px;
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 20px;
+            animation: float 4s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(1); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* White screen effect */
+        .white-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            font-family: 'Pacifico', cursive;
+            color: #ff4081;
+            animation: fadeIn 2s forwards;
+            z-index: 100;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts"></div>
+
+    <div class="container">
+        <h2>Gurl you be fine asf!! 💕</h2>
+        <input type="text" id="nameInput" placeholder="Enter your name shawty">
+        <br><br>
+        <button onclick="askRelationship()">Next</button>
+    </div>
+
+    <div class="popup" id="popup">
+        <h3 id="popupText"></h3>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+    <div class="white-screen" id="whiteScreen">
+        You're now mine Putu ❤️
+    </div>
+
+    <script>
+        function askRelationship() {
+            let name = document.getElementById("nameInput").value;
+            if (name === "") {
+                showPopup("Please enter your name shawty!");
+                return;
+            }
+            let isSingle = confirm(`${name}, are you single?`);
+            if (isSingle) {
+                setTimeout(() => {
+                    showPopup("Would you like to be my Valentine? ❤️", true);
+                }, 500);
+            } else {
+                showPopup("dont care imma steal you");
+            }
+        }
+
+        function showPopup(message, showFinalEffect = false) {
+            document.getElementById("popupText").innerText = message;
+            document.getElementById("popup").style.display = "block";
+
+            if (showFinalEffect) {
+                document.getElementById("popup").setAttribute("data-final", "true");
+            }
+        }
+
+        function closePopup() {
+            let popup = document.getElementById("popup");
+            popup.style.display = "none";
+
+            if (popup.getAttribute("data-final") === "true") {
+                setTimeout(() => {
+                    document.getElementById("whiteScreen").style.display = "flex";
+                }, 500);
+            }
+        }
+
+        function createHearts() {
+            const heartContainer = document.querySelector(".hearts");
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+                heart.style.fontSize = Math.random() * 20 + 15 + "px";
+                heartContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }
+        }
+
+        setInterval(createHearts, 1000);
+    </script>
+
+</body>
+</html>
